@@ -1,0 +1,13 @@
+{
+  "name": "liberal-arts-final-report",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "ssh://git@github.com/ras0q/liberal-arts-final-report.git",
+  "author": "ras0q <asymptote.k.k@gmail.com>",
+  "license": "MIT",
+  "type": "module",
+  "dependencies": {
+    "jsdom": "^21.0.0",
+    "node-fetch": "^3.3.0"
+  }
+}
