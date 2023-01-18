@@ -7,11 +7,15 @@ const semaphore = new Semaphore(10)
 
 const yearSongs = fs.readdirSync('./data')
 for (const yearSong of yearSongs) {
-  /** @type {Array<{artist: string, title: string}>} */
+  /** @type {Array<{artist: string, title: string, lyric: string | null}>} */
   const songs = JSON.parse(fs.readFileSync(`./data/${yearSong}`, 'utf-8'))
 
   const withLyrics = await Promise.all(
     songs.map(async (song) => {
+      if (song.lyric) {
+        return song
+      }
+
       const release = await semaphore.acquire()
 
       const html = await (
