@@ -18,10 +18,12 @@ for (const yearSong of yearSongs) {
 
       const release = await semaphore.acquire()
 
+      const title =
+        song.title === 'W / X / Y'
+          ? song.title
+          : song.title.replace(/[〜～]/g, ' ').replace(/[/／].+$/g, '')
       const html = await (
-        await fetch(
-          `https://www.uta-net.com/search/?Keyword=${song.title}&sort=4`
-        )
+        await fetch(`https://www.uta-net.com/search/?Keyword=${title}&sort=4`)
       ).text()
       const dom = new JSDOM(html)
       const artistElements = dom.window.document.querySelectorAll(
