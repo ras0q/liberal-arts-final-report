@@ -2,6 +2,7 @@ import fs from 'fs'
 import { JSDOM } from 'jsdom'
 import fetch from 'node-fetch'
 
+const datadir = './data/songs'
 const yearAndSelector = {
   1990: '#mw-content-text > div.mw-parser-output > ul:nth-child(18) > li',
   1991: '#mw-content-text > div.mw-parser-output > ul:nth-child(25) > li',
@@ -25,5 +26,5 @@ for (const [year, selector] of Object.entries(yearAndSelector)) {
     return { artist: matches[1], title: matches[2] }
   })
 
-  fs.writeFileSync(`./data/${year}.json`, JSON.stringify(songs, null, 2))
+  fs.writeFileSync(`${datadir}/${year}.json`, JSON.stringify(songs, null, 2))
 }

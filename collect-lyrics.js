@@ -5,10 +5,11 @@ import fetch from 'node-fetch'
 
 const semaphore = new Semaphore(10)
 
-const yearSongs = fs.readdirSync('./data')
+const datadir = './data/songs'
+const yearSongs = fs.readdirSync(datadir)
 for (const yearSong of yearSongs) {
   /** @type {Array<{artist: string, title: string, lyric: string | null}>} */
-  const songs = JSON.parse(fs.readFileSync(`./data/${yearSong}`, 'utf-8'))
+  const songs = JSON.parse(fs.readFileSync(`${datadir}/${yearSong}`, 'utf-8'))
 
   const withLyrics = await Promise.all(
     songs.map(async (song) => {
@@ -55,7 +56,7 @@ for (const yearSong of yearSongs) {
     })
   )
 
-  fs.writeFileSync(`./data/${yearSong}`, JSON.stringify(withLyrics, null, 2))
+  fs.writeFileSync(`${datadir}/${yearSong}`, JSON.stringify(withLyrics, null, 2))
 
   console.log(`Finished ${yearSong}`)
 }
