@@ -7,6 +7,9 @@ const yearAndSelector = {
   1990: '#mw-content-text > div.mw-parser-output > ul:nth-child(18) > li',
   1991: '#mw-content-text > div.mw-parser-output > ul:nth-child(25) > li',
   1992: '#mw-content-text > div.mw-parser-output > ul:nth-child(23) > li',
+  2000: '#mw-content-text > div.mw-parser-output > ul:nth-child(39) > li',
+  2001: '#mw-content-text > div.mw-parser-output > ul:nth-child(41) > li',
+  2002: '#mw-content-text > div.mw-parser-output > ul:nth-child(45) > li',
 }
 
 for (const [year, selector] of Object.entries(yearAndSelector)) {
