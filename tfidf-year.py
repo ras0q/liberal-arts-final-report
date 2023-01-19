@@ -38,6 +38,15 @@ tfidf = transformer.fit_transform(tf)
 tfidf_array = tfidf.toarray()
 cs = cosine_similarity(tfidf_array)
 with open("./data/tfidf/tfidf-year.csv", "w") as fp:
+    years = [f.replace(".json", "") for f in files]
     w = csv.writer(fp, lineterminator="\n")
-    w.writerow([f.replace(".json", "") for f in files])
-    w.writerows(cs)
+    w.writerow([""] + years)
+    w.writerows(
+        [
+            [years[i]] + [
+                cs[i][j] if i < j else "" for j in range(len(cs[i]))
+            ]
+            for i in range(len(cs))
+        ]
+    )
+    # w.writerows(cs)
