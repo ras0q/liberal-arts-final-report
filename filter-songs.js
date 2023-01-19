@@ -1,7 +1,7 @@
 import fs from 'fs'
 
 const limit = 40
-const allTitles = []
+const allUniqueSongs = []
 
 const datadir = './data/songs'
 const yearSongs = fs.readdirSync(datadir)
@@ -13,14 +13,20 @@ for (const yearSong of yearSongs) {
 
   const uniqueSongs = []
   for (let i = 0; i < songs.length; i++) {
-    if (i >= limit) {
+    if (uniqueSongs.length >= limit) {
       break
     }
 
     const song = songs[i]
-    if (allTitles.indexOf(song.title.toLowerCase()) === -1) {
-      allTitles.push(song.title.toLowerCase())
+    if (
+      allUniqueSongs.find(
+        (s) =>
+          s.title.toLowerCase() === song.title.toLowerCase() ||
+          s.lyric === song.lyric
+      ) === undefined
+    ) {
       uniqueSongs.push(song)
+      allUniqueSongs.push(song)
     } else {
       console.log('dup: ', song.title)
     }
