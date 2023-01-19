@@ -22,7 +22,11 @@ for (const yearSong of yearSongs) {
       const title =
         song.title === 'W / X / Y'
           ? song.title
-          : song.title.replace(/[〜～]/g, ' ').replace(/[/／].+$/g, '')
+          : song.title
+              .replace(/[〜～].+[〜～]/g, ' ')
+              .replace(/[/／].+$/g, '')
+              .replace(/♥/g, '・')
+              .replace(/'\d+/, '')
       const html = await (
         await fetch(`https://www.uta-net.com/search/?Keyword=${title}&sort=4`)
       ).text()
@@ -56,7 +60,10 @@ for (const yearSong of yearSongs) {
     })
   )
 
-  fs.writeFileSync(`${datadir}/${yearSong}`, JSON.stringify(withLyrics, null, 2))
+  fs.writeFileSync(
+    `${datadir}/${yearSong}`,
+    JSON.stringify(withLyrics, null, 2)
+  )
 
   console.log(`Finished ${yearSong}`)
 }

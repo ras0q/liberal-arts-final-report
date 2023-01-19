@@ -13,7 +13,7 @@ const yearAndSelector = {
 }
 
 for (const [year, selector] of Object.entries(yearAndSelector)) {
-  console.log("Start fetching", year)
+  console.log('Start fetching', year)
 
   const res = await fetch(`https://ja.wikipedia.org/wiki/${year}年の音楽`)
   const html = await res.text()
@@ -26,10 +26,13 @@ for (const [year, selector] of Object.entries(yearAndSelector)) {
     // 例:
     // 1位 B.B.クィーンズ：『おどるポンポコリン』
     const matches = st.textContent.match(/\d+位 (.+)：[『「](.+)[』」]/)
-    return { artist: matches[1], title: matches[2].replace(/[/／].+$/g, '') }
+    return {
+      artist: matches[1].replace(/\[.+\]/, ''),
+      title: matches[2].replace(/[/／].+$/g, ''),
+    }
   })
 
   fs.writeFileSync(`${datadir}/${year}.json`, JSON.stringify(songs, null, 2))
 
-  console.log("Finished fetching", year)
+  console.log('Finished fetching', year)
 }
