@@ -28,6 +28,7 @@ for songs in songsByYear:
                 norns.append(node.surface)
             node = node.next
         song["wakati"] = " ".join(norns)
+        print(song["wakati"])
     yearLyrics.append(" ".join([s["wakati"] for s in songs]))
 
 # 分かち書きされた文章の類似度をTF-IDFで解析

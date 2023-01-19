@@ -18,8 +18,8 @@ for (const yearSong of yearSongs) {
     }
 
     const song = songs[i]
-    if (allTitles.indexOf(song.title) === -1) {
-      allTitles.push(song.title)
+    if (allTitles.indexOf(song.title.toLowerCase()) === -1) {
+      allTitles.push(song.title.toLowerCase())
       uniqueSongs.push(song)
     } else {
       console.log('dup: ', song.title)
