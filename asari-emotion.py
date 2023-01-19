@@ -22,7 +22,12 @@ positiveAves = [
 print(positiveAves)
 
 x = [f.split(".")[0] for f in files]
-plt.plot(x, positiveAves, marker="o")
+
+# positiveAvesを3つずつplotする
+for i in range(0, len(positiveAves), 3):
+    plt.plot(x[i : i + 3], positiveAves[i : i + 3], marker="o")
+
 for i, v in enumerate(positiveAves):
     plt.text(i, v, f"{v:.3f}", ha="center", va="top")
+
 plt.savefig("./data/emotion/positive.png")
