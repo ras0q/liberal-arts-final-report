@@ -1,5 +1,6 @@
 import fs from 'fs'
 
+const limit = 40
 const allTitles = []
 
 const datadir = './data/songs'
@@ -11,7 +12,12 @@ for (const yearSong of yearSongs) {
   ).filter((song) => song.lyric !== null)
 
   const uniqueSongs = []
-  for (const song of songs) {
+  for (let i = 0; i < songs.length; i++) {
+    if (i >= limit) {
+      break
+    }
+
+    const song = songs[i]
     if (allTitles.indexOf(song.title) === -1) {
       allTitles.push(song.title)
       uniqueSongs.push(song)
