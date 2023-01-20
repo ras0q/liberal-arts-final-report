@@ -2,6 +2,7 @@ import json
 import os
 
 import matplotlib.pyplot as plt
+import pandas as pd
 from asari.api import Sonar
 
 
@@ -14,20 +15,16 @@ files = sorted(os.listdir(datadir))
 songsByYear = [json.load(open(f"{datadir}/{f}")) for f in files]
 
 sonar = Sonar()
-positiveAves = [
+positives = [
     # classes[0] is negative, classes[1] is positive
-    average([sonar.ping(text=s["lyric"])["classes"][1]["confidence"] for s in songs])
+    [sonar.ping(text=s["lyric"])["classes"][1]["confidence"] for s in songs]
     for songs in songsByYear
 ]
-print(positiveAves)
+print(positives)
 
 x = [f.split(".")[0] for f in files]
 
-# positiveAvesを3つずつplotする
-for i in range(0, len(positiveAves), 3):
-    plt.plot(x[i : i + 3], positiveAves[i : i + 3], marker="o")
-
-for i, v in enumerate(positiveAves):
-    plt.text(i, v, f"{v:.3f}", ha="center", va="top")
-
+df = pd.DataFrame(positives, index=x).transpose()
+df.to_csv("./data/emotion/positive.csv")
+df.plot.box(showmeans=True, grid=True, whis=[0, 100])
 plt.savefig("./data/emotion/positive.png")
